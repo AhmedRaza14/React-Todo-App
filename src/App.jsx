@@ -32,6 +32,11 @@ function App() {
   const deleteTask = (index) => {
   setTask(task.filter((_, i) => i !== index))
 }
+  const doneTask = (index) => {
+    setTask(task.map((item, i) =>
+      i === index ? <s>{item}</s> : item
+    ))
+  }
   return (
     <>
     <h1
@@ -76,10 +81,10 @@ function App() {
         listStyleType: 'none',
         padding: '0',
         marginTop: '20px',
-        marginLeft: '35px',
+        marginLeft: '15px',
         color: 'black',
         backgroundColor: '#dddddd',
-        width: '300px',
+        width: '400px',
         borderRadius: '7px',
         paddingTop: '20px',
         paddingBottom: '20px',
@@ -114,6 +119,17 @@ function App() {
             }}
             onClick={() => editTask(index)}
             >Edit</button>
+            <button
+            style={{
+              backgroundColor: 'goldenrod',
+              color: 'white',
+              border: 'none',
+              borderRadius: '7px',
+              padding: '5px 10px',
+              marginLeft: '10px',
+            }}
+            onClick={() => doneTask(index)}
+            >Mark Done</button>
           </li>
         ))}
       </ul>
