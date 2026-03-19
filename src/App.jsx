@@ -5,6 +5,7 @@ import './App.css'
 function App() {
   const [task, setTask] = useState([])
   const [input, setInput] = useState("")
+  const [history, setHistory] = useState(false)
 
   const addingTask = () => {
     if (input === ""){
@@ -15,6 +16,7 @@ function App() {
 
       setTask([...task, input])
       setInput("")
+      setHistory(true)
     }
   }
   const editTask = (index) => {
@@ -76,6 +78,7 @@ function App() {
       }}
       onClick={addingTask}>Add</button>
         </div>
+        {task.length > 0 && (
       <ul
       style={{
         listStyleType: 'none',
@@ -83,9 +86,9 @@ function App() {
         marginTop: '20px',
         marginLeft: '15px',
         color: 'black',
-        backgroundColor: '#dddddd',
         width: '400px',
         borderRadius: '7px',
+        backgroundColor: '#dddddd',
         paddingTop: '20px',
         paddingBottom: '20px',
         display: 'flex',
@@ -96,43 +99,63 @@ function App() {
       }}
       >
         {task.map((item, index) => (
-          <li key={index}>{item}
-          <button
-           style={{
-             backgroundColor: 'red',
-             border: 'none',
-             borderRadius: '7px',
-             padding: '5px 10px',
-             marginLeft: '40px',
-            }}
-            onClick={() => deleteTask(index)}>
-            Delete
-            </button>
-            <button
-            style={{
-              backgroundColor: 'blue',
-              color: 'white',
-              border: 'none',
-              borderRadius: '7px',
-              padding: '5px 10px',
-              marginLeft: '10px',
-            }}
-            onClick={() => editTask(index)}
-            >Edit</button>
-            <button
-            style={{
-              backgroundColor: 'goldenrod',
-              color: 'white',
-              border: 'none',
-              borderRadius: '7px',
-              padding: '5px 10px',
-              marginLeft: '10px',
-            }}
-            onClick={() => doneTask(index)}
-            >Mark Done</button>
-          </li>
-        ))}
+  <li
+    key={index}
+    style={{
+      display: 'flex',
+      alignItems: 'center',      
+      justifyContent: 'space-between', 
+      padding: '10px 20px',      
+    }}
+  >
+    <span style={{ flex: 1, textAlign: 'left', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+      {item}
+    </span>
+
+    <div style={{ display: 'flex', gap: '10px', marginLeft: '20px' }}>
+      <button
+        style={{
+          backgroundColor: 'red',
+          color: 'white',
+          border: 'none',
+          borderRadius: '7px',
+          padding: '5px 10px',
+        }}
+        onClick={() => deleteTask(index)}
+      >
+        Delete
+      </button>
+      
+      <button
+        style={{
+          backgroundColor: 'blue',
+          color: 'white',
+          border: 'none',
+          borderRadius: '7px',
+          padding: '5px 10px',
+        }}
+        onClick={() => editTask(index)}
+      >
+        Edit
+      </button>
+
+      <button
+        style={{
+          backgroundColor: 'goldenrod',
+          color: 'white',
+          border: 'none',
+          borderRadius: '7px',
+          padding: '5px 10px',
+        }}
+        onClick={() => doneTask(index)}
+      >
+        Mark Done
+      </button>
+    </div>
+  </li>
+))}
       </ul>
+        )}
     </>
   )
 }
